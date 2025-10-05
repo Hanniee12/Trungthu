@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+  <meta charset="utf-8" />
+  <title>Profile Trần Hưng Tài ~</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./avatajpg.jpg" />
+  <meta name="description" content="A bad boy who is half-hearted and uneducated all day long, dreams of becoming a scholar in the fields" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Profile Trần Hưng Tài ~" />
+  <meta property="og:description" content="A bad boy who is half-hearted and uneducated all day long, dreams of becoming a scholar in the fields" />
+  <meta property="og:image" content="./static/img/avatar.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Profile Trần Hưng Tài ~" />
+  <meta name="twitter:description" content="A bad boy who is half-hearted and uneducated all day long, dreams of becoming a scholar in the fields" />
+  <meta name="twitter:image" content="./static/img/avatar.png" />
+
+  <meta name="theme-color" content="#000000" />
+
+
+  <style>
+  
+    @font-face {
+      font-family: 'Hummington';
+      src: url('MTD-Hummington.otf') format('opentype');
+      font-display: swap;
+    }
+
+  
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: url('./backgroud.jpg') center/cover no-repeat fixed; 
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background-color: #000;
+    }
+
+  
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.65);
+      z-index: 10000;             
+      opacity: 1;
+      transition: opacity .8s ease;
+    }
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255, 255, 255, 0.25);
+      border-top-color: #ffd37e;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 25px rgba(255, 211, 126, 0.6);
+      margin: 0 auto;
+    }
+    .loading-text {
+      margin-top: 14px;
+      color: #fffbe8;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 211, 126, .8);
+      font-size: 18px;
+      text-align: center;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    
+    .intro-overlay{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      z-index: 9999;             
+      opacity: 0;                  
+      pointer-events: none;        
+      transition: opacity .6s ease;
+    }
+    .intro-overlay.show{
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .intro-card{
+      max-width:min(92vw,900px); padding:26px 22px; border-radius:20px; text-align:center;
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:0 10px 40px rgba(0,0,0,.4);
+    }
+    .intro-title{
+      font-family:'Hummington', cursive, system-ui;
+      font-size: clamp(28px, 6vw, 64px);
+      color:#fff4d6; letter-spacing:.5px;
+      text-shadow:0 0 12px rgba(255,236,200,.85), 0 0 28px rgba(255,210,120,.45);
+    }
+    .intro-sub{
+      margin-top:8px;
+      font: 500 clamp(14px, 2.6vw, 20px)/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:#f3f3f3; opacity:.95
+    }
+    .intro-btn{
+      margin-top:16px; padding:12px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.35);
+      color:#111; background:#ffd37e; cursor:pointer; font-weight:700
+    }
+    .intro-btn:hover{ filter: brightness(1.06) }
+
+    
+    canvas { display:block; position:relative; z-index: 1; }
+  </style>
+</head>
+<body>
+  
+  <div class="overlay" id="overlay">
+    <div>
+      <div class="loader"></div>
+      <div class="loading-text">Đang tải web...</div>
+    </div>
+  </div>
+
+
+  <audio id="bgm" src="./trungthu.mp3" preload="auto" loop></audio>
+  <div class="intro-overlay" id="intro">
+    <div class="intro-card">
+      <div class="intro-title">Đây là website tạo bởi Trần Hưng Tài</div>
+      <div class="intro-sub">Chúc mọi người có Trung Thu vui vẻ ✨</div>
+      <button class="intro-btn" id="startBtn">Vào Trung Thu</button>
+    </div>
+  </div>
+
+  
+  <script type="module">
+  
+    window.addEventListener("load", () => {
+      const overlay = document.getElementById("overlay");
+      const intro   = document.getElementById("intro");
+      overlay.classList.add("hidden");
+      setTimeout(() => {
+        overlay.remove();
+        intro.classList.add("show");  
+      }, 800);
+    });
+
+    
+    setTimeout(() => {
+      const overlay = document.getElementById("overlay");
+      const intro   = document.getElementById("intro");
+      if (overlay) {
+        overlay.classList.add("hidden");
+        setTimeout(() => overlay.remove(), 800);
+        intro.classList.add("show");
+      }
+    }, 50000);
+
+    
+    import * as THREE from 'https://unpkg.com/three@0.152.2/build/three.module.js';
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x050712, 0.0005);
+
+    const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 5000);
+    camera.position.set(0, 0, 400);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference:'high-performance' });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 0);
+    document.body.appendChild(renderer.domElement);
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+    const pink = new THREE.PointLight(0xff7fb1, 0.95, 0, 2); pink.position.set(240, 180, 320);
+    const blue = new THREE.PointLight(0x7fb8ff, 0.8, 0, 2);  blue.position.set(-260, -160, -360);
+    scene.add(ambient, pink, blue);
+
+    const rand = (a,b)=> a + Math.random()*(b-a);
+
+    function makeTextSprite(text,{fontSize=48,color='#ff1a1a',glow='#ff66b2'}={}){
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+      const pad = 50;
+      const meas = document.createElement('canvas').getContext('2d');
+      meas.font = `${fontSize}px "Hummington", cursive`;
+      const w = Math.ceil(meas.measureText(text).width) + pad*2;
+      const h = Math.ceil(fontSize*1.6) + pad*2;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(2, w * DPR);
+      canvas.height = Math.max(2, h * DPR);
+      const ctx = canvas.getContext('2d');
+      ctx.scale(DPR, DPR);
+
+      ctx.font = `${fontSize}px "Hummington", cursive`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(255,102,178,0.9)'; 
+      ctx.shadowColor = glow; ctx.shadowBlur = 6; 
+      ctx.fillStyle = color;                       
+      ctx.strokeText(text, w/2, h/2);
+      ctx.fillText(text, w/2, h/2);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+
+      const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 1 });
+      const sprite = new THREE.Sprite(mat);
+      sprite.scale.set(90, 45, 1);
+      return sprite;
+    }
+
+    const WORDS = [
+      'Chúc các bạn nữ','Đặc biệt là Linh và Ánh 💖',
+      'Một đêm Trung Thu thật vui 🌕','Luôn xinh đẹp và hạnh phúc 🎀',
+      'Trăng sáng, lòng cũng sáng 💫','Thật nhiều niềm vui và yêu thương 💕'
+    ];
+
+    const group = new THREE.Group(); scene.add(group);
+    const COUNT=90, R_MIN=60, R_MAX=1400, Y_BOTTOM=-400, Y_TOP=300;
+    const NEAR_FADE_START=120, NEAR_FADE_END=50;
+    const sprites=[];
+
+    function biasedRadius(){ const t=Math.pow(Math.random(),0.7); return R_MIN + t*(R_MAX-R_MIN); }
+    function spawnAtBottom(s){
+      const ay=Math.random()*Math.PI*2; const ax=rand(-Math.PI/4,Math.PI/4);
+      const r=biasedRadius(); const x=Math.cos(ay)*Math.cos(ax)*r; const z=Math.sin(ay)*Math.cos(ax)*r;
+      const y=rand(Y_BOTTOM-150, Y_BOTTOM-50);
+      s.position.set(x,y,z);
+      s.userData.speed=rand(20,32); s.userData.fadeBandTop=rand(120,180);
+      s.material.opacity=0.9;
+    }
+
+    for(let i=0;i<COUNT;i++){ const s=makeTextSprite(WORDS[i%WORDS.length]); group.add(s); sprites.push(s); spawnAtBottom(s); s.position.y+=rand(0,(Y_TOP-Y_BOTTOM)*0.9); }
+
+    const pGeo=new THREE.BufferGeometry(); const pCount=260; const posArr=new Float32Array(pCount*3);
+    for(let i=0;i<pCount;i++){ const r=rand(1100,2200),th=rand(0,Math.PI*2),ph=rand(-Math.PI/3,Math.PI/3);
+      posArr[i*3]=Math.cos(th)*Math.cos(ph)*r; posArr[i*3+1]=Math.sin(ph)*r; posArr[i*3+2]=Math.sin(th)*Math.cos(ph)*r; }
+    pGeo.setAttribute('position',new THREE.BufferAttribute(posArr,3));
+    const pMat=new THREE.PointsMaterial({color:0xaec6ff,size:2,transparent:true,opacity:0.22,depthWrite:false});
+    const points=new THREE.Points(pGeo,pMat); scene.add(points);
+
+    let targetRotX=0,targetRotY=0;
+    addEventListener('mousemove',e=>{ targetRotY=(e.clientX/innerWidth-0.5)*0.35; targetRotX=(e.clientY/innerHeight-0.5)*-0.22; });
+    addEventListener('wheel',e=>{ e.preventDefault(); camera.position.z=THREE.MathUtils.clamp(camera.position.z + Math.sign(e.deltaY)*36, 60, 1500); }, {passive:false});
+
+    let pulse=0; (function pulseLight(){ pulse+=0.05; pink.intensity = 0.95 + Math.sin(pulse)*0.2; requestAnimationFrame(pulseLight); })();
+
+    const clock = new THREE.Clock(); let running=false;
+    function animate(){
+      requestAnimationFrame(animate);
+      if(!running) return;
+      const dt=Math.min(clock.getDelta(),0.033);
+      group.rotation.y+=(targetRotY-group.rotation.y)*0.08;
+      group.rotation.x+=(targetRotX-group.rotation.x)*0.08;
+      for(const s of sprites){
+        s.position.y+=s.userData.speed*dt;
+        if(s.position.y<Y_BOTTOM+40){ s.material.opacity=Math.min(1,s.material.opacity+dt*2.0); }
+        if(s.position.y>Y_TOP-s.userData.fadeBandTop){ const t=(s.position.y-(Y_TOP-s.userData.fadeBandTop))/s.userData.fadeBandTop; s.material.opacity=Math.min(s.material.opacity,THREE.MathUtils.clamp(1-t,0,1)); }
+        const distCam=s.position.distanceTo(camera.position);
+        if(distCam<NEAR_FADE_START){ const k=(distCam-NEAR_FADE_END)/(NEAR_FADE_START-NEAR_FADE_END); s.material.opacity=Math.min(s.material.opacity,THREE.MathUtils.clamp(k,0,1)); if(distCam<NEAR_FADE_END){ spawnAtBottom(s);} }
+        if(s.position.y>Y_TOP+100){ spawnAtBottom(s); }
+      }
+      points.rotation.y += 0.0003;
+      renderer.render(scene,camera);
+    }
+    animate();
+
+    
+    const startBtn = document.getElementById('startBtn');
+    const bgm = document.getElementById('bgm');
+    function fadeInAudio(){ let v=0; bgm.volume=0; bgm.muted=false; bgm.play().catch(()=>{}); const iv=setInterval(()=>{ v+=0.06; bgm.volume=Math.min(0.65,v); if(v>=0.65) clearInterval(iv); },120); }
+    function startExperience(){ document.getElementById('intro').classList.remove('show'); document.getElementById('intro').style.opacity=0; setTimeout(()=>document.getElementById('intro').remove(),600); running=true; fadeInAudio(); }
+    startBtn?.addEventListener('click', startExperience);
+
+    addEventListener('resize',()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+  </script>
+</body>
+</html>
