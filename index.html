@@ -131,7 +131,7 @@
   </div>
 
 
-  <audio id="bgm" src="./trungthu.mp3" preload="auto" loop></audio>
+  <audio id="bgm" src="./nhac.mp3" preload="auto" loop></audio>
   <div class="intro-overlay" id="intro">
     <div class="intro-card">
       <div class="intro-title">Đây là website tạo bởi Trần Hưng Tài</div>
@@ -188,7 +188,7 @@
 
     const rand = (a,b)=> a + Math.random()*(b-a);
 
-    function makeTextSprite(text,{fontSize=48,color='#ff1a1a',glow='#ff66b2'}={}){
+    function makeTextSprite(text,{fontSize=52,color='#ff1a1a',glow='#ff66b2'}={}){
       const DPR = Math.min(window.devicePixelRatio || 1, 2);
       const pad = 50;
       const meas = document.createElement('canvas').getContext('2d');
@@ -289,4 +289,5 @@
   </script>
 </body>
 </html>
+
 
