@@ -188,39 +188,56 @@
 
     const rand = (a,b)=> a + Math.random()*(b-a);
 
-    function makeTextSprite(text,{fontSize=52,color='#ff1a1a',glow='#ff66b2'}={}){
+    function makeTextSprite(text, {
+      fontSize = 72,
+      color = '#ff4d4d',   // đỏ tươi hơn, dễ nhìn
+      glow = '#ffb6c1'     // hồng sáng nhẹ kiểu đèn lồng
+    } = {}) {
       const DPR = Math.min(window.devicePixelRatio || 1, 2);
-      const pad = 50;
+      const pad = 60;
       const meas = document.createElement('canvas').getContext('2d');
-      meas.font = `${fontSize}px "Hummington", cursive`;
-      const w = Math.ceil(meas.measureText(text).width) + pad*2;
-      const h = Math.ceil(fontSize*1.6) + pad*2;
-
+      meas.font = `700 ${fontSize}px "Hummington", cursive`;  // 700 = đậm
+      const w = Math.ceil(meas.measureText(text).width) + pad * 2;
+      const h = Math.ceil(fontSize * 1.6) + pad * 2;
+    
       const canvas = document.createElement('canvas');
       canvas.width = Math.max(2, w * DPR);
       canvas.height = Math.max(2, h * DPR);
       const ctx = canvas.getContext('2d');
       ctx.scale(DPR, DPR);
-
-      ctx.font = `${fontSize}px "Hummington", cursive`;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(255,102,178,0.9)'; 
-      ctx.shadowColor = glow; ctx.shadowBlur = 6; 
-      ctx.fillStyle = color;                       
-      ctx.strokeText(text, w/2, h/2);
-      ctx.fillText(text, w/2, h/2);
-
+    
+      ctx.font = `700 ${fontSize}px "Hummington", cursive`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+    
+      // viền và hiệu ứng sáng rõ hơn
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#ffe6f2';        // viền sáng gần trắng hồng
+      ctx.shadowColor = glow;
+      ctx.shadowBlur = 18;
+      ctx.fillStyle = color;
+    
+      ctx.strokeText(text, w / 2, h / 2);
+      ctx.fillText(text, w / 2, h / 2);
+    
       const tex = new THREE.CanvasTexture(canvas);
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.generateMipmaps = true;
       tex.minFilter = THREE.LinearMipmapLinearFilter;
       tex.magFilter = THREE.LinearFilter;
-
-      const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 1 });
+    
+      const mat = new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        depthWrite: false,
+        opacity: 1
+      });
+    
       const sprite = new THREE.Sprite(mat);
-      sprite.scale.set(90, 45, 1);
+      sprite.scale.set(140, 70, 1); // chữ to rõ hơn
       return sprite;
     }
+
 
     const WORDS = [
       'Chúc các bạn nữ','Đặc biệt là Linh và Ánh 💖',
@@ -289,6 +306,7 @@
   </script>
 </body>
 </html>
+
 
 
 
